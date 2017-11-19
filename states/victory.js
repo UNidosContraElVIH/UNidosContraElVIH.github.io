@@ -15,7 +15,7 @@ var ganaste = {
         enter.onDown.addOnce(this.start, this);
 
         /* Resetea la cantidad de diplomas en cada juego */
-        total_diplomas = 0;
+        total_condones = 0;
     },
     
     // reinicia el juego   

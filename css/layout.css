@@ -279,7 +279,7 @@ ul#nav li.active a { color: #f6a5a3; }
 #services a, #services a:visited  { color: #C4C4C4; }
 #services a:hover, #services a:focus { color: #f6a5a3; }
 
-#services .section-head h2 { color: #f6a5a3; }
+#services .section-head h2, h3, h5 { color: #f6a5a3; }
 #services .section-head p.desc,
 #services .section-head .intro { color: #57606B; }
 

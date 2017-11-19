@@ -1,9 +1,8 @@
 /* Se crea una nueva instancia de juego llamada estudianteEnFinales. */
 /* Esta es llamada en el manager */
 
-/* Se añade una variable que cuente el total de diplomas que lleva el usuario*/
-var total_diplomas = 0;
-
+/* Se añade una variable que cuente el total de condones que lleva el usuario*/
+var total_condones = 0;
 /* Se siguieron diferentes tutoriales encontrados en la pagina de Phaser */
 
 /* Esta función recibe como parametro "game" -definido en el 
@@ -20,12 +19,12 @@ var estudianteEnFinales = function (game) {
     this.pareja = null;
     this.tv = null;
 
-    /* Se crean los objetos estaticos diplomas */
-    this.diploma1  = null;
-    this.diploma2  = null;
-    this.diploma3  = null;
-    this.diploma4  = null;
-    this.diploma5  = null;
+    /* Se crean los objetos estaticos condones */
+    this.condon1  = null;
+    this.condon2  = null;
+    this.condon3  = null;
+    this.condon4  = null;
+    this.condon5  = null;
     /* */
     //this.safetile = 1;
     /* Se usara para calcular movimientos */
@@ -79,12 +78,12 @@ estudianteEnFinales.prototype = {
         this.load.image('tiles', 'images/map/default_tiles_x.png');
         /* Importa la imagen del jugador */
         this.load.image('jugador', 'images/map/car90.png');
-        /* Importa la imagen del diploma*/
-        this.load.image('diploma', 'images/map/diploma.png');
+        /* Importa la imagen del condon*/
+        this.load.image('condon', 'images/map/condon.png');
         /* Importa el logo de la UN */
         this.load.image('un', 'images/map/un.png');
         /* Importa el enemigo */
-        this.load.image('enemigo', 'images/map/fb.png');
+        this.load.image('enemigo', 'images/map/virus.png');
         /* Importa el otro enemigo */
         this.load.image('twitter', 'images/map/tw.png');
         /* Y mas...*/
@@ -127,16 +126,21 @@ estudianteEnFinales.prototype = {
         this.physics.arcade.enable(this.twitter);
         this.physics.arcade.enable(this.pareja);
         this.physics.arcade.enable(this.tv);
-        /* Se añaden los diplomas en el mapa */
+        /* Se añaden los condones en el mapa */
         /*Como cada recuadro en el mapa mide 32 e inicia desde cero, así
             se calculo para añadir a la posición: x*cantidad de casillas, y*cantidad de casillas*/
-        this.diploma1 = game.add.sprite(160,32, 'diploma');
-        this.diploma2 = game.add.sprite(384,64, 'diploma');
-        this.diploma3 = game.add.sprite(128,288, 'diploma');
-        this.diploma4 = game.add.sprite(512,288, 'diploma');
-        this.diploma5 = game.add.sprite(256,384, 'diploma');
+        this.condon1 = game.add.sprite(160,32, 'condon');
+        this.condon2 = game.add.sprite(384,64, 'condon');
+        this.condon3 = game.add.sprite(128,288, 'condon');
+        this.condon4 = game.add.sprite(512,288, 'condon');
+        this.condon5 = game.add.sprite(256,384, 'condon');
         /* El movimiento del jugador es manejado por el usuario.
         Se le indica a game que se hará a través del teclado*/
+        puntaje = game.add.text(2, 2, "Puntaje: 0" , { font: "24px Montserrat"} );
+        puntaje.addColor("#f6a5a3", 0);
+        puntaje.stroke = '#1a1c1e';
+        puntaje.fontWeight = 'bold';        
+        puntaje.strokeThickness = 4;
         this.cursors = this.input.keyboard.createCursorKeys();
         /* Inicializa el movimiento, en este caso hacia abajo*/
         this.move(Phaser.DOWN);
@@ -303,7 +307,7 @@ estudianteEnFinales.prototype = {
             this.turn();
         }
 
-        /* Y buscará los diplomas */
+        /* Y buscará los condones */
         this.colisiones();
 
         this.ganaste();
@@ -317,56 +321,62 @@ estudianteEnFinales.prototype = {
 
 
     colisiones: function () {
-        // Colisiones. Resta el valor de x y y de jugador y la diploma, si es menor a 20px destruye el objeto diploma
-        if (this.jugador.x == (this.diploma1.x + 16) && this.jugador.y == (this.diploma1.y+16)){
-            this.diploma1.destroy();
+        // Colisiones. Resta el valor de x y y de jugador y la condon, si es menor a 20px destruye el objeto condon
+        if (this.jugador.x == (this.condon1.x + 16) && this.jugador.y == (this.condon1.y+16)){
+            this.condon1.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
-            this.diploma1.y = 0;
-            this.diploma1.x = 0;
-            total_diplomas += 1;
+            this.condon1.y = 0;
+            this.condon1.x = 0;
+            total_condones += 1;
         }
 
-        if (this.jugador.x == (this.diploma2.x + 16) && this.jugador.y == (this.diploma2.y+16)){
-            this.diploma2.destroy();
+        if (this.jugador.x == (this.condon2.x + 16) && this.jugador.y == (this.condon2.y+16)){
+            this.condon2.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
-            this.diploma2.y = 0;
-            this.diploma2.x = 0;
-            total_diplomas += 1;
+            this.condon2.y = 0;
+            this.condon2.x = 0;
+            total_condones += 1;
         }
 
-        if (this.jugador.x == (this.diploma3.x + 16) && this.jugador.y == (this.diploma3.y+16)){
-            this.diploma3.destroy();
+        if (this.jugador.x == (this.condon3.x + 16) && this.jugador.y == (this.condon3.y+16)){
+            this.condon3.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
-            this.diploma3.y = 0;
-            this.diploma3.x = 0;
-            total_diplomas += 1;
+            this.condon3.y = 0;
+            this.condon3.x = 0;
+            total_condones += 1;
         }
 
-        if (this.jugador.x == (this.diploma4.x + 16) && this.jugador.y == (this.diploma4.y+16)){
-            this.diploma4.destroy();
+        if (this.jugador.x == (this.condon4.x + 16) && this.jugador.y == (this.condon4.y+16)){
+            this.condon4.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
-            this.diploma4.y = 0;
-            this.diploma4.x = 0;
-            total_diplomas += 1;    
+            this.condon4.y = 0;
+            this.condon4.x = 0;
+            total_condones += 1;    
         }
 
-        if (this.jugador.x == (this.diploma5.x + 16) && this.jugador.y == (this.diploma5.y+16)){
-            this.diploma5.destroy();
+        if (this.jugador.x == (this.condon5.x + 16) && this.jugador.y == (this.condon5.y+16)){
+            this.condon5.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
-            this.diploma5.y = 0;
-            this.diploma5.x = 0;
-            total_diplomas+= 1;    
+            this.condon5.y = 0;
+            this.condon5.x = 0;
+            total_condones+= 1;    
         }
+
+        puntaje.setText("Puntaje: " + total_condones);
+        
     },
 
     /* Cambia de estado si gana*/
     ganaste: function () {
-        /* Si el total de diplomas es 5 puede ir a la puerta y ganar */
+        /* Si el total de condones es 5 puede ir a la puerta y ganar */
         /* Como la posición de jugador se refiere al punto de giro, se suma 16 (ya que es la mitad del jugador)
          a la posición unal*/
         if(this.jugador.x == (this.unal.x+16) && this.jugador.y == (this.unal.y+16)){
-            if (total_diplomas == 5) {
+            if (total_condones == 5) {
                 game.state.start("ganar");
+            } else {
+                puntaje.setText("¡Sin todos los condones ni pio!");
+                
             }
         }
             
@@ -408,7 +418,7 @@ estudianteEnFinales.prototype = {
         //detectar cuando jugador y distraccion se cruzaban
         //this.game.debug.text("Diferencia x: " + (this.jugador.x - (this.distraccion.x+16)), 32, 32);
         //this.game.debug.text("Diferencia y: " + (this.jugador.y - (this.distraccion.y+16)), 32, 64);
-        //this.game.debug.text("Contador: " + total_diplomas, 32, 128);
+        //this.game.debug.text("Contador: " + total_condones, 32, 128);
 
     } */
 
