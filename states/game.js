@@ -339,11 +339,12 @@ estudianteEnFinales.prototype = {
         }
 
         if (this.jugador.x == (this.condon3.x + 16) && this.jugador.y == (this.condon3.y + 16)) {
+            reg.modal.showModal("modal5");
             this.condon3.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon3.y = 0;
             this.condon3.x = 0;
-            total_condones += 1;
+            //total_condones += 1;
         }
 
         if (this.jugador.x == (this.condon4.x + 16) && this.jugador.y == (this.condon4.y + 16)) {
@@ -586,6 +587,105 @@ estudianteEnFinales.prototype = {
                 }
             ]
         });
+
+                // Modal 5
+                reg.modal.createModal({
+                    type: "modal5",
+                    includeBackground: true,
+                    modalCloseOnInput: false,
+                    itemsArr: [
+                        {
+                            type: "text",
+                            content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
+                            fontFamily: "Montserrat",
+                            fontSize: 20,
+                            color: "f6a5a3",
+                            offsetY: -100,
+                            stroke: "0x000000",
+                            strokeThickness: 5
+                        },
+                        {
+                            type: "text",
+                            content: "Si tu eres fiel,\n ¿puedes adquirir el VIH?",
+                            fontFamily: "Montserrat",
+                            fontSize: 20,
+                            color: "f6a5a3",
+                            stroke: "0x000000",
+                            strokeThickness: 5
+                        },
+                        {
+                            type: "text",
+                            content: "si",
+                            fontFamily: "Montserrat",
+                            fontSize: 30,
+                            color: "f6a5a3",
+                            stroke: "0x000000",
+                            strokeThickness: 5,
+                            offsetY: 100,
+                            offsetX: -80,
+                            callback: function () {
+                                // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+                                // autemnta el 1 para eliminar la pared donde esta la reina
+                                //reg.wallDestroy += 1;
+                                //item.kill();                        
+                                reg.modal.hideModal("modal5");
+                                total_condones += 1;
+                                //hero.walking_speed = 150;
+                            }
+        
+                        },
+                        {
+                            type: "text",
+                            content: "no",
+                            fontFamily: "Montserrat",
+                            fontSize: 30,
+                            color: "f6a5a3",
+                            stroke: "0x000000",
+                            strokeThickness: 5,
+                            offsetY: 100,
+                            offsetX: 80,
+                            contentScale: 0.6,
+                            callback: function () {
+                                reg.modal.hideModal("modal5");
+                                reg.modal.showModal("modal6");
+                                // en caso que responda no muestra game over y reinicia el juego
+                                setTimeout(
+                                    function restart() {
+                                        game.state.start('perder');
+                                    },
+                                    2500);
+                            }
+                            //contentScale: 0.6,
+        
+        
+                        }
+                    ]
+                });
+        
+                reg.modal.createModal({
+                    type: "modal6",
+                    includeBackground: true,
+                    modalCloseOnInput: false,
+                    itemsArr: [
+                        {
+                            type: "text",
+                            content: "Puedes contagiarte con una transfusión de sangre.",
+                            fontFamily: "Montserrat",
+                            fontSize: 12,
+                            color: "f6a5a3",
+                            offsetY: 50
+                        },
+                        {
+                            type: "text",
+                            content: "Y.... así seas fiel, nada asegura que tu pareja lo sea ;)",
+                            fontFamily: "Montserrat",
+                            fontSize: 12,
+                            color: "f6a5a3",
+                            offsetY: -50,
+                            contentScale: 0.6
+                        }
+                    ]
+                });
         
     },
 
