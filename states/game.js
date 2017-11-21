@@ -556,7 +556,103 @@ estudianteEnFinales.prototype = {
                 }
             ]
         });
+    reg.modal.createModal({
+    type:"modal2",
+    includeBackground: true,
+    modalCloseOnInput: false,
+    itemsArr: [
+            {
+                type: "text",
+                content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
+                fontFamily: "Montserrat",
+                fontSize: 20,
+                color: "f6a5a3",
+                offsetY: -100,
+                stroke: "0x000000",
+                strokeThickness: 5
+        },
+            {
+                type: "text",
+                content: "Si un hombre se hizo la circuncisión,\n ¿tiene menor riesgo de adquirir el VIH?",
+                fontFamily: "Montserrat",
+                fontSize: 20,
+                color: "f6a5a3",
+                stroke: "0x000000",
+                strokeThickness: 5
+        },
+            {
+                type: "text",
+                content: "si",
+                fontFamily: "Montserrat",
+                fontSize: 30,
+                color: "f6a5a3",
+                stroke: "0x000000",
+                strokeThickness: 5,
+                offsetY: 100,
+                offsetX: -80,
+                callback: function () {
+                    // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+                    // autemnta el 1 para eliminar la pared donde esta la reina
+                        //reg.wallDestroy += 1;
+                        //item.kill();                        
+                        reg.modal.hideModal("modal2");
+                        total_condones += 1;
+                        //hero.walking_speed = 150;
+                    }
 
+        },
+            {
+                type: "text",
+                content: "no",
+                fontFamily: "Montserrat",
+                fontSize: 30,
+                color: "f6a5a3",
+                stroke: "0x000000",
+                strokeThickness: 5,
+                offsetY: 100,
+                offsetX: 80,
+                contentScale: 0.6,
+                callback: function () {
+                    reg.modal.hideModal("modal2");
+                    reg.modal.showModal("modal4");
+                    // en caso que responda no muestra game over y reinicia el juego
+                    setTimeout(
+                        function restart(){
+                            game.state.start('perder');
+                            },
+                        2500);  
+                }
+                //contentScale: 0.6,
+                
+                
+            }
+        ]
+    });
+
+    reg.modal.createModal({
+        type:"modal4",
+        includeBackground: true,
+        modalCloseOnInput: false,
+        itemsArr: [
+            {
+                type: "text",
+                content: "Las pruebas indican que la circuncisión masculina puede disminuir el riesgo de que un individuo se infecte por el VIH y la tasa de propagación del VIH en la comunidad",
+                fontFamily: "Montserrat",
+                fontSize: 12,
+                color: "f6a5a3",
+                offsetY: 50
+            },
+          {
+                type: "text",
+                content: "La circuncisión masculina nunca debe reemplazar \na otros métodos de prevención y debe considerarse\n como un elemento más de las medidas de prevención",
+                fontFamily: "Montserrat",
+                fontSize: 12,
+                color: "f6a5a3",
+                offsetY: -50,
+                contentScale: 0.6
+            }
+        ]
+    });
     // /// ventana modal 4, conversación 4 ///
     // reg.modal.createModal({
     //         type:"modal4",
