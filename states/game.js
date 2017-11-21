@@ -340,11 +340,12 @@ estudianteEnFinales.prototype = {
         }
 
         if (this.jugador.x == (this.condon2.x + 16) && this.jugador.y == (this.condon2.y+16)){
+            reg.modal.showModal("modal1");
             this.condon2.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon2.y = 0;
             this.condon2.x = 0;
-            total_condones += 1;
+            //total_condones += 1;
         }
 
         if (this.jugador.x == (this.condon3.x + 16) && this.jugador.y == (this.condon3.y+16)){
@@ -556,6 +557,8 @@ estudianteEnFinales.prototype = {
                 }
             ]
         });
+     
+    // Modal 2
     reg.modal.createModal({
     type:"modal2",
     includeBackground: true,
