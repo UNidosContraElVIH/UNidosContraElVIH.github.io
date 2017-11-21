@@ -3,6 +3,9 @@
 
 /* Se añade una variable que cuente el total de condones que lleva el usuario*/
 var total_condones = 0;
+
+/* Para los modal */
+var reg = {};
 /* Se siguieron diferentes tutoriales encontrados en la pagina de Phaser */
 
 /* Esta función recibe como parametro "game" -definido en el 
@@ -94,6 +97,10 @@ estudianteEnFinales.prototype = {
 
     /* Esta función crea nuestro mundo con los elementos que se cargaron en preload*/
     create: function () {
+        // con la libreria modal.js creamos un nuevo objeto modal, para crear los dialogos
+        reg.modal = new gameModal(game);
+        // llamamos a la funcion que creara los dialogos
+        this.createModals();
         /* Añade el mapa al escenario */
         this.map = this.add.tilemap('map');
         /* Añade los elementos en el json en el escenario. 'other' es el nombre clave
@@ -280,6 +287,7 @@ estudianteEnFinales.prototype = {
      */
     /* Maneja la logica del juego */
     update: function () {
+
        /* Hace colisionar jugador con la capa, mediante la función arcade de Phaser */
         this.physics.arcade.collide(this.jugador, this.capa);
         /*También hace que el enemigo colisione*/
@@ -321,13 +329,14 @@ estudianteEnFinales.prototype = {
 
 
     colisiones: function () {
+
         // Colisiones. Resta el valor de x y y de jugador y la condon, si es menor a 20px destruye el objeto condon
         if (this.jugador.x == (this.condon1.x + 16) && this.jugador.y == (this.condon1.y+16)){
+            reg.modal.showModal("modal1");
             this.condon1.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon1.y = 0;
             this.condon1.x = 0;
-            total_condones += 1;
         }
 
         if (this.jugador.x == (this.condon2.x + 16) && this.jugador.y == (this.condon2.y+16)){
@@ -387,6 +396,265 @@ estudianteEnFinales.prototype = {
         game.state.start('perder');
     },
 
+    createModals: function(){
+ //// ventana modal 1, conversación 1 ////
+ reg.modal.createModal({
+    type:"modal1",
+    includeBackground: true,
+    modalCloseOnInput: false,
+    itemsArr: [
+            {
+                type: "text",
+                content: "Tienes una oportunidad, si contestas mal tienes que volver a comenzar.",
+                fontFamily: "Montserrat",
+                fontSize: 20,
+                color: "f6a5a3",
+                offsetY: -100,
+                stroke: "0x000000",
+                strokeThickness: 5
+        },
+            {
+                type: "text",
+                content: "¿Abrazar a un seropositivo puede hacer que te contagies?",
+                fontFamily: "Montserrat",
+                fontSize: 20,
+                color: "f6a5a3",
+                stroke: "0x000000",
+                strokeThickness: 5
+        },
+            {
+                type: "text",
+                content: "si",
+                fontFamily: "Montserrat",
+                fontSize: 30,
+                color: "f6a5a3",
+                stroke: "0x000000",
+                strokeThickness: 5,
+                offsetY: 100,
+                offsetX: -80,
+                callback: function () {
+                    reg.modal.hideModal("modal1");
+                    reg.modal.showModal("modal3");
+                    // en caso que responda no muestra game over y reinicia el juego
+                    setTimeout(
+                        function restart(){
+                            game.state.start('perder');
+                            },
+                        2500);  
+                }
+                //contentScale: 0.6,
+
+        },
+            {
+                type: "text",
+                content: "no",
+                fontFamily: "Montserrat",
+                fontSize: 30,
+                color: "f6a5a3",
+                stroke: "0x000000",
+                strokeThickness: 5,
+                offsetY: 100,
+                offsetX: 80,
+                contentScale: 0.6,
+                callback: function () {
+                    // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+                    // autemnta el 1 para eliminar la pared donde esta la reina
+                        //reg.wallDestroy += 1;
+                        //item.kill();                        
+                        reg.modal.hideModal("modal1");
+                        total_condones += 1;
+                        //hero.walking_speed = 150;
+                    }
+                
+            }
+        ]
+    });
+
+    // /// ventana modal 2, conversacion 2 ///
+    // reg.modal.createModal({
+    //     type:"modal2",
+    //     includeBackground: true,
+    //     modalCloseOnInput: false,
+    // itemsArr: [
+    //         {
+    //             type: "text",
+    //             content: "Tienes una oportunidad, si contestas mal Mueressssss.....",
+    //             fontFamily: "Montserrat",
+    //             fontSize: 20,
+    //             color: "f6a5a3",
+    //             offsetY: -100,
+    //             stroke: "0x000000",
+    //             strokeThickness: 5
+    //     },
+    //         {
+    //             type: "text",
+    //             content: "¿Darias lo que tienes por ella?",
+    //             fontFamily: "Montserrat",
+    //             fontSize: 20,
+    //             color: "f6a5a3",
+    //             stroke: "0x000000",
+    //             strokeThickness: 5
+    //     },
+    //         {
+    //             type: "image",
+    //             content: "si",
+    //             offsetY: 100,
+    //             offsetX: -80,
+    //             contentScale: 0.6,
+    //             callback: function () {
+    //                 // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+    //                 // autemnta el 1 para eliminar la pared donde esta la reina
+    //                 reg.wallDestroy += 1;
+    //                 item.kill();                        
+    //                 reg.modal.hideModal("modal2");
+    //                 hero.walking_speed = 150;
+                
+    //             }
+    //     },
+    //         {
+    //             type: "image",
+    //             content: "no",
+    //             offsetY: 100,
+    //             offsetX: 80,
+    //             contentScale: 0.6,
+    //             callback: function () {
+    //                 reg.modal.hideModal("modal2");
+    //                 reg.modal.showModal("modal3");
+    //                 // en caso que responda no muestra game over y reinicia el juego
+    //                 setTimeout(
+    //                     function restart(){
+    //                         game.state.start("BootState", true, false, "assets/levels/world_level.json", "WorldState")
+    //                         },
+    //                     2500);                            
+    //             }
+    //     }
+    //     ]
+    // });
+        
+    /// ventana modal 3, conversación 3 ///
+    reg.modal.createModal({
+            type:"modal3",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "¿En serio, man",
+                    fontFamily: "Montserrat",
+                    fontSize: 42,
+                    color: "f6a5a3",
+                    offsetY: 50
+                },
+              {
+                    type: "text",
+                    content: "En serio man???",
+                    fontFamily: "Montserrat",
+                    fontSize: 42,
+                    color: "f6a5a3",
+                    offsetY: -50,
+                    contentScale: 0.6
+                }
+            ]
+        });
+
+    // /// ventana modal 4, conversación 4 ///
+    // reg.modal.createModal({
+    //         type:"modal4",
+    //         includeBackground: true,
+    //         modalCloseOnInput: false,
+    //         itemsArr: [
+    //             {
+    //                 type: "text",
+    //                 content: "Gracias por salvarme!\nEres el Amigo que toda\nprincesa debe tener!",
+    //                 fontFamily: "Montserrat",
+    //                 fontSize: 30,
+    //                 color: "f6a5a3",
+    //                 offsetY: 50
+    //             },
+    //           {
+    //                 type: "image",
+    //                 content: "princess",
+    //                 offsetY: -90
+    //             }
+    //         ]
+    //     });
+    //  /// ventana modal 5, conversación 5 /// 
+    // reg.modal.createModal({
+    //         type:"modal5",
+    //         includeBackground: true,
+    //         modalCloseOnInput: false,
+    //         itemsArr: [
+    //             {
+    //                 type: "image",
+    //                 content: "ahora_no",
+    //                 offsetY: 0
+    //             }
+    //         ]
+    //     });
+    // /// ventana modal 6, conversación 6 ///
+    // reg.modal.createModal({
+    //         type:"modal6",
+    //         includeBackground: true,
+    //         modalCloseOnInput: false,
+    //         itemsArr: [
+    //             {
+    //                 type: "text",
+    //                 content: "Ahora si princesa!\nHe luchado por ti!",
+    //                 fontFamily: "Montserrat",
+    //                 fontSize: 45,
+    //                 color: "f6a5a3",
+    //                 offsetY: 50
+    //             },
+    //           {
+    //                 type: "image",
+    //                 content: "hero",
+    //                 offsetY: -150
+    //             }
+    //         ]
+    //     });
+    // /// ventana modal 7, conversacion 7 ///
+    // reg.modal.createModal({
+    //         type:"modal7",
+    //         includeBackground: true,
+    //         modalCloseOnInput: false,
+    //         itemsArr: [
+    //             {
+    //                 type: "text",
+    //                 content: "Tu solo me salvaste con otras\nintenciones...",
+    //                 fontFamily: "Montserrat",
+    //                 fontSize: 30,
+    //                 color: "f6a5a3",
+    //                 offsetY: 50
+    //             },
+    //           {
+    //                 type: "image",
+    //                 content: "princess",
+    //                 offsetY: -90
+    //             }
+    //         ]
+    //     });
+    // /// ventana modal 8, conversación 8 ///
+    // reg.modal.createModal({
+    //         type:"modal8",
+    //         includeBackground: true,
+    //         modalCloseOnInput: false,
+    //         itemsArr: [
+    //             {
+    //                 type: "text",
+    //                 content: "... FIN",
+    //                 fontFamily: "Montserrat",
+    //                 fontSize: 30,
+    //                 color: "f6a5a3",
+    //                 offsetY: 50
+    //             },
+    //             {
+    //                 type: "image",
+    //                 content: "c_l_supo",
+    //                 offsetY: -150
+    //             }
+    //         ]
+    //     });
+    },
 /*     render: function () {
 
         //  Render permite añadir texto o colores sobre el juego
