@@ -348,19 +348,21 @@ estudianteEnFinales.prototype = {
         }
 
         if (this.jugador.x == (this.condon4.x + 16) && this.jugador.y == (this.condon4.y + 16)) {
+            reg.modal.showModal("modal7");
             this.condon4.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon4.y = 0;
             this.condon4.x = 0;
-            total_condones += 1;
+            //total_condones += 1;
         }
 
         if (this.jugador.x == (this.condon5.x + 16) && this.jugador.y == (this.condon5.y + 16)) {
+            reg.modal.showModal("modal9");
             this.condon5.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon5.y = 0;
             this.condon5.x = 0;
-            total_condones += 1;
+            //total_condones += 1;
         }
 
         puntaje.setText("Puntaje: " + total_condones);
@@ -416,7 +418,7 @@ estudianteEnFinales.prototype = {
                 },
                 {
                     type: "text",
-                    content: "si",
+                    content: "Si",
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
@@ -432,14 +434,14 @@ estudianteEnFinales.prototype = {
                             function restart() {
                                 game.state.start('perder');
                             },
-                            2500);
+                            7500);
                     }
                     //contentScale: 0.6,
 
                 },
                 {
                     type: "text",
-                    content: "no",
+                    content: "No",
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
@@ -516,7 +518,7 @@ estudianteEnFinales.prototype = {
                 },
                 {
                     type: "text",
-                    content: "si",
+                    content: "Si",
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
@@ -537,7 +539,7 @@ estudianteEnFinales.prototype = {
                 },
                 {
                     type: "text",
-                    content: "no",
+                    content: "No",
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
@@ -554,7 +556,7 @@ estudianteEnFinales.prototype = {
                             function restart() {
                                 game.state.start('perder');
                             },
-                            2500);
+                            7500);
                     }
                     //contentScale: 0.6,
 
@@ -570,7 +572,7 @@ estudianteEnFinales.prototype = {
             itemsArr: [
                 {
                     type: "text",
-                    content: "Las pruebas indican que la circuncisión masculina puede disminuir el riesgo de que un individuo se infecte por el VIH y la tasa de propagación del VIH en la comunidad",
+                    content: "Las pruebas indican que la circuncisión masculina \npuede disminuir el riesgo de que un individuo se infecte por el VIH\n y la tasa de propagación del VIH en la comunidad",
                     fontFamily: "Montserrat",
                     fontSize: 20,
                     color: "f6a5a3",
@@ -578,7 +580,7 @@ estudianteEnFinales.prototype = {
                 },
                 {
                     type: "text",
-                    content: "La circuncisión masculina nunca debe reemplazar \na otros métodos de prevención y debe considerarse\n como un elemento más de las medidas de prevención",
+                    content: "La circuncisión masculina nunca debe reemplazar \na otros métodos de prevención y debe considerarse\n como un elemento más de las medidas de prevención",
                     fontFamily: "Montserrat",
                     fontSize: 20,
                     color: "f6a5a3",
@@ -588,105 +590,309 @@ estudianteEnFinales.prototype = {
             ]
         });
 
-                // Modal 5
-                reg.modal.createModal({
-                    type: "modal5",
-                    includeBackground: true,
-                    modalCloseOnInput: false,
-                    itemsArr: [
-                        {
-                            type: "text",
-                            content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
-                            fontFamily: "Montserrat",
-                            fontSize: 20,
-                            color: "f6a5a3",
-                            offsetY: -100,
-                            stroke: "0x000000",
-                            strokeThickness: 5
-                        },
-                        {
-                            type: "text",
-                            content: "Si tu eres fiel,\n ¿puedes adquirir el VIH?",
-                            fontFamily: "Montserrat",
-                            fontSize: 20,
-                            color: "f6a5a3",
-                            stroke: "0x000000",
-                            strokeThickness: 5
-                        },
-                        {
-                            type: "text",
-                            content: "si",
-                            fontFamily: "Montserrat",
-                            fontSize: 30,
-                            color: "f6a5a3",
-                            stroke: "0x000000",
-                            strokeThickness: 5,
-                            offsetY: 100,
-                            offsetX: -80,
-                            callback: function () {
-                                // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
-                                // autemnta el 1 para eliminar la pared donde esta la reina
-                                //reg.wallDestroy += 1;
-                                //item.kill();                        
-                                reg.modal.hideModal("modal5");
-                                total_condones += 1;
-                                //hero.walking_speed = 150;
-                            }
-        
-                        },
-                        {
-                            type: "text",
-                            content: "no",
-                            fontFamily: "Montserrat",
-                            fontSize: 30,
-                            color: "f6a5a3",
-                            stroke: "0x000000",
-                            strokeThickness: 5,
-                            offsetY: 100,
-                            offsetX: 80,
-                            contentScale: 0.6,
-                            callback: function () {
-                                reg.modal.hideModal("modal5");
-                                reg.modal.showModal("modal6");
-                                // en caso que responda no muestra game over y reinicia el juego
-                                setTimeout(
-                                    function restart() {
-                                        game.state.start('perder');
-                                    },
-                                    2500);
-                            }
-                            //contentScale: 0.6,
-        
-        
-                        }
-                    ]
-                });
-        
-                reg.modal.createModal({
-                    type: "modal6",
-                    includeBackground: true,
-                    modalCloseOnInput: false,
-                    itemsArr: [
-                        {
-                            type: "text",
-                            content: "Puedes contagiarte con una transfusión de sangre.",
-                            fontFamily: "Montserrat",
-                            fontSize: 20,
-                            color: "f6a5a3",
-                            offsetY: 50
-                        },
-                        {
-                            type: "text",
-                            content: "Y.... así seas fiel, nada asegura que tu pareja lo sea ;)",
-                            fontFamily: "Montserrat",
-                            fontSize: 20,
-                            color: "f6a5a3",
-                            offsetY: -50,
-                            contentScale: 0.6
-                        }
-                    ]
-                });
-        
+        // Modal 5
+        reg.modal.createModal({
+            type: "modal5",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: -100,
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "Si tu eres fiel,\n ¿puedes adquirir el VIH?",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "Si",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: -80,
+                    callback: function () {
+                        // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+                        // autemnta el 1 para eliminar la pared donde esta la reina
+                        //reg.wallDestroy += 1;
+                        //item.kill();                        
+                        reg.modal.hideModal("modal5");
+                        total_condones += 1;
+                        //hero.walking_speed = 150;
+                    }
+
+                },
+                {
+                    type: "text",
+                    content: "No",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: 80,
+                    contentScale: 0.6,
+                    callback: function () {
+                        reg.modal.hideModal("modal5");
+                        reg.modal.showModal("modal6");
+                        // en caso que responda no muestra game over y reinicia el juego
+                        setTimeout(
+                            function restart() {
+                                game.state.start('perder');
+                            },
+                            7500);
+                    }
+                    //contentScale: 0.6,
+
+
+                }
+            ]
+        });
+
+        reg.modal.createModal({
+            type: "modal6",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "Puedes contagiarte con una transfusión de sangre.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: 50
+                },
+                {
+                    type: "text",
+                    content: "Y.... así seas fiel, nada asegura que tu pareja lo sea ;)",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: -50,
+                    contentScale: 0.6
+                }
+            ]
+        });
+
+        // Modal 7
+        // Modal 5
+        reg.modal.createModal({
+            type: "modal5",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: -100,
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "Si practico sexo oral no puedo adquirir el VIH.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "Verdadero",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: -80,
+                    callback: function () {
+                        reg.modal.hideModal("modal5");
+                        reg.modal.showModal("modal6");
+                        // en caso que responda no muestra game over y reinicia el juego
+                        setTimeout(
+                            function restart() {
+                                game.state.start('perder');
+                            },
+                            7500);
+                    }
+
+                },
+                {
+                    type: "text",
+                    content: "Falso",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: 80,
+                    contentScale: 0.6,
+                    callback: function () {
+                        // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+                        // autemnta el 1 para eliminar la pared donde esta la reina
+                        //reg.wallDestroy += 1;
+                        //item.kill();                        
+                        reg.modal.hideModal("modal5");
+                        total_condones += 1;
+                        //hero.walking_speed = 150;
+                    }
+
+                    //contentScale: 0.6,
+
+
+                }
+            ]
+        });
+
+        reg.modal.createModal({
+            type: "modal6",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "El semen puede contener el virus.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: 50
+                },
+                {
+                    type: "text",
+                    content: "Puedes tener sexo oral, siempre y cuando sea con condón.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: -50,
+                    contentScale: 0.6
+                }
+            ]
+        });
+
+
+        //Modal 9
+        // Modal 5
+        reg.modal.createModal({
+            type: "modal9",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: -100,
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "¿VIH es lo mismo que SIDA?",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "Si",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: -80,
+                    callback: function () {
+                        reg.modal.hideModal("modal9");
+                        reg.modal.showModal("modal10");
+                        // en caso que responda no muestra game over y reinicia el juego
+                        setTimeout(
+                            function restart() {
+                                game.state.start('perder');
+                            },
+                            7500);
+                    }
+
+                },
+                {
+                    type: "text",
+                    content: "No",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: 80,
+                    contentScale: 0.6,
+                    callback: function () {
+                        // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+                        // autemnta el 1 para eliminar la pared donde esta la reina
+                        //reg.wallDestroy += 1;
+                        //item.kill();                        
+                        reg.modal.hideModal("modal9");
+                        total_condones += 1;
+                        //hero.walking_speed = 150;
+                    }
+
+
+                    //contentScale: 0.6,
+
+
+                }
+            ]
+        });
+
+        reg.modal.createModal({
+            type: "modal10",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "El SIDA es la etapa avanzada de la infección por VIH.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: 50
+                },
+                {
+                    type: "text",
+                    content: "Puede tardar entre 2 y 15 años en manifestarse.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: -50,
+                    contentScale: 0.6
+                }
+            ]
+        });
+
     },
 
 };
