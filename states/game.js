@@ -405,7 +405,7 @@ estudianteEnFinales.prototype = {
     itemsArr: [
             {
                 type: "text",
-                content: "Tienes una oportunidad, si contestas mal tienes que volver a comenzar.",
+                content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
                 fontFamily: "Montserrat",
                 fontSize: 20,
                 color: "f6a5a3",
@@ -539,7 +539,7 @@ estudianteEnFinales.prototype = {
             itemsArr: [
                 {
                     type: "text",
-                    content: "¿En serio, man",
+                    content: "¿En serio, man?",
                     fontFamily: "Montserrat",
                     fontSize: 42,
                     color: "f6a5a3",
@@ -547,7 +547,7 @@ estudianteEnFinales.prototype = {
                 },
               {
                     type: "text",
-                    content: "En serio man???",
+                    content: "¿Really?",
                     fontFamily: "Montserrat",
                     fontSize: 42,
                     color: "f6a5a3",
