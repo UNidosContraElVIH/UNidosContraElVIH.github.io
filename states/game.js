@@ -572,7 +572,7 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "Las pruebas indican que la circuncisión masculina puede disminuir el riesgo de que un individuo se infecte por el VIH y la tasa de propagación del VIH en la comunidad",
                     fontFamily: "Montserrat",
-                    fontSize: 12,
+                    fontSize: 20,
                     color: "f6a5a3",
                     offsetY: 50
                 },
@@ -580,7 +580,7 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "La circuncisión masculina nunca debe reemplazar \na otros métodos de prevención y debe considerarse\n como un elemento más de las medidas de prevención",
                     fontFamily: "Montserrat",
-                    fontSize: 12,
+                    fontSize: 20,
                     color: "f6a5a3",
                     offsetY: -50,
                     contentScale: 0.6
@@ -671,7 +671,7 @@ estudianteEnFinales.prototype = {
                             type: "text",
                             content: "Puedes contagiarte con una transfusión de sangre.",
                             fontFamily: "Montserrat",
-                            fontSize: 12,
+                            fontSize: 20,
                             color: "f6a5a3",
                             offsetY: 50
                         },
@@ -679,7 +679,7 @@ estudianteEnFinales.prototype = {
                             type: "text",
                             content: "Y.... así seas fiel, nada asegura que tu pareja lo sea ;)",
                             fontFamily: "Montserrat",
-                            fontSize: 12,
+                            fontSize: 20,
                             color: "f6a5a3",
                             offsetY: -50,
                             contentScale: 0.6
