@@ -23,11 +23,11 @@ var estudianteEnFinales = function (game) {
     this.tv = null;
 
     /* Se crean los objetos estaticos condones */
-    this.condon1  = null;
-    this.condon2  = null;
-    this.condon3  = null;
-    this.condon4  = null;
-    this.condon5  = null;
+    this.condon1 = null;
+    this.condon2 = null;
+    this.condon3 = null;
+    this.condon4 = null;
+    this.condon5 = null;
     /* */
     //this.safetile = 1;
     /* Se usara para calcular movimientos */
@@ -48,9 +48,9 @@ var estudianteEnFinales = function (game) {
         sabemos si nuestro jugador puede moverse hacia la 
         izquierda, derecha, arriba, abajo. El primer elemento se 
         refiere cuando no realiza movimientos. */
-    this.direcciones = [ null, null, null, null, null ];
+    this.direcciones = [null, null, null, null, null];
     /* Se crea un arreglo de opuestos de las direcciones anteriores */
-    this.opuestos = [ Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP ];
+    this.opuestos = [Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP];
     /* Guarda la posición actual*/
     this.actual = Phaser.UP;
     /* Busca los posibles movimientos, los que son validos para moverse
@@ -115,12 +115,12 @@ estudianteEnFinales.prototype = {
         /*El elemento 2 es una pared */
         this.map.setCollision(2, true, this.capa);
         // Se incluye el logo en el escenario
-        this.unal = game.add.sprite(384,384, 'un');
+        this.unal = game.add.sprite(384, 384, 'un');
         /* se incluye al enemigo en el escenario */
-        this.distraccion = game.add.sprite(128,128, 'enemigo');
-        this.twitter = game.add.sprite(224,128, 'twitter');
-        this.pareja = game.add.sprite(576,128, 'couple');
-        this.tv = game.add.sprite(96,384, 'tv');
+        this.distraccion = game.add.sprite(128, 128, 'enemigo');
+        this.twitter = game.add.sprite(224, 128, 'twitter');
+        this.pareja = game.add.sprite(576, 128, 'couple');
+        this.tv = game.add.sprite(96, 384, 'tv');
         /* Se añade al jugador en el escenario*/
         this.jugador = this.add.sprite(48, 48, 'jugador');
         /*Se refiere a la rotación de jugador. 0.5, en la mitad*/
@@ -136,17 +136,17 @@ estudianteEnFinales.prototype = {
         /* Se añaden los condones en el mapa */
         /*Como cada recuadro en el mapa mide 32 e inicia desde cero, así
             se calculo para añadir a la posición: x*cantidad de casillas, y*cantidad de casillas*/
-        this.condon1 = game.add.sprite(160,32, 'condon');
-        this.condon2 = game.add.sprite(384,64, 'condon');
-        this.condon3 = game.add.sprite(128,288, 'condon');
-        this.condon4 = game.add.sprite(512,288, 'condon');
-        this.condon5 = game.add.sprite(256,384, 'condon');
+        this.condon1 = game.add.sprite(160, 32, 'condon');
+        this.condon2 = game.add.sprite(384, 64, 'condon');
+        this.condon3 = game.add.sprite(128, 288, 'condon');
+        this.condon4 = game.add.sprite(512, 288, 'condon');
+        this.condon5 = game.add.sprite(256, 384, 'condon');
         /* El movimiento del jugador es manejado por el usuario.
         Se le indica a game que se hará a través del teclado*/
-        puntaje = game.add.text(2, 2, "Puntaje: 0" , { font: "24px Montserrat"} );
+        puntaje = game.add.text(2, 2, "Puntaje: 0", { font: "24px Montserrat" });
         puntaje.addColor("#f6a5a3", 0);
         puntaje.stroke = '#1a1c1e';
-        puntaje.fontWeight = 'bold';        
+        puntaje.fontWeight = 'bold';
         puntaje.strokeThickness = 4;
         this.cursors = this.input.keyboard.createCursorKeys();
         /* Inicializa el movimiento, en este caso hacia abajo*/
@@ -157,7 +157,7 @@ estudianteEnFinales.prototype = {
     },
 
     /* Contiene todos los movimientos de los enemigos en el mundo */
-    moverEnemigo: function() {
+    moverEnemigo: function () {
         /* Se define el movimiento en x o en y; con bounce se da el efecto de rebote*/
         this.distraccion.body.velocity.x = 100;
         this.distraccion.body.bounce.setTo(1, 1);
@@ -176,20 +176,16 @@ estudianteEnFinales.prototype = {
     accionesTeclado: function () {
         /* Realiza la opción cuando la tecla es presionada */
         /* Aquí se presentan las 4 direcciones posibles */
-        if (this.cursors.left.isDown)
-        {
+        if (this.cursors.left.isDown) {
             this.esValidoMoverse(Phaser.LEFT);
         }
-        else if (this.cursors.right.isDown)
-        {
+        else if (this.cursors.right.isDown) {
             this.esValidoMoverse(Phaser.RIGHT);
         }
-        if (this.cursors.up.isDown)
-        {
+        if (this.cursors.up.isDown) {
             this.esValidoMoverse(Phaser.UP);
         }
-        else if (this.cursors.down.isDown)
-        {
+        else if (this.cursors.down.isDown) {
             this.esValidoMoverse(Phaser.DOWN);
         }
 
@@ -199,12 +195,10 @@ estudianteEnFinales.prototype = {
     esValidoMoverse: function (moverA) {
         /*Si el movimiento del usuario actual es contra una pared, llamará a la función move, para que
         examine otros movimientos posibles*/
-        if (this.actual === this.opuestos[moverA])
-        {
+        if (this.actual === this.opuestos[moverA]) {
             this.move(moverA);
         }
-        else
-        {
+        else {
             /*Si no hay una casilla que lo obstruya gira a esa dirección*/
             this.girar = moverA;
             /*Punto giro es un elemento visual que le indica al usuario cual fue su ultimo giro
@@ -241,18 +235,15 @@ estudianteEnFinales.prototype = {
         var velocidad = this.velocidad;
         /* Como la velocidad es "negativa" de acuerdo al movimiento izquierda o arriba se actualiza de la siguiente forma
          para se conserve*/
-        if (direction === Phaser.LEFT || direction === Phaser.UP)
-        {
+        if (direction === Phaser.LEFT || direction === Phaser.UP) {
             velocidad = -velocidad;
         }
         /* Establece la velocidad (cuando hay un avance) en x (derecha/izquierda)
           o en y (arriba/abajo) */
-        if (direction === Phaser.LEFT || direction === Phaser.RIGHT)
-        {
+        if (direction === Phaser.LEFT || direction === Phaser.RIGHT) {
             this.jugador.body.velocity.x = velocidad;
         }
-        else
-        {
+        else {
             this.jugador.body.velocity.y = velocidad;
         }
 
@@ -265,30 +256,30 @@ estudianteEnFinales.prototype = {
     },
 
     // Esta función muestra el cambio en la imagen debido al giro
-/*     getAngle: function (to) {
-
-        console.log(this.actual + " <Actual | opuestos> " +this.opuestos[to])
-        if (this.actual === this.opuestos[to])
-        {
-            return "180";
-        }
-
-        if ((this.actual === Phaser.UP && to === Phaser.LEFT) ||
-            (this.actual === Phaser.DOWN && to === Phaser.RIGHT) ||
-            (this.actual === Phaser.LEFT && to === Phaser.DOWN) ||
-            (this.actual === Phaser.RIGHT && to === Phaser.UP))
-        {
-            return "-90";
-        }
-
-        return "90";
-
-    },
-     */
+    /*     getAngle: function (to) {
+    
+            console.log(this.actual + " <Actual | opuestos> " +this.opuestos[to])
+            if (this.actual === this.opuestos[to])
+            {
+                return "180";
+            }
+    
+            if ((this.actual === Phaser.UP && to === Phaser.LEFT) ||
+                (this.actual === Phaser.DOWN && to === Phaser.RIGHT) ||
+                (this.actual === Phaser.LEFT && to === Phaser.DOWN) ||
+                (this.actual === Phaser.RIGHT && to === Phaser.UP))
+            {
+                return "-90";
+            }
+    
+            return "90";
+    
+        },
+         */
     /* Maneja la logica del juego */
     update: function () {
 
-       /* Hace colisionar jugador con la capa, mediante la función arcade de Phaser */
+        /* Hace colisionar jugador con la capa, mediante la función arcade de Phaser */
         this.physics.arcade.collide(this.jugador, this.capa);
         /*También hace que el enemigo colisione*/
         this.physics.arcade.collide(this.distraccion, this.capa);
@@ -310,8 +301,7 @@ estudianteEnFinales.prototype = {
         this.accionesTeclado();
 
         /*Si puede girar llamara a la función que evalua giros */
-        if (this.girar !== Phaser.NONE)
-        {
+        if (this.girar !== Phaser.NONE) {
             this.turn();
         }
 
@@ -331,7 +321,7 @@ estudianteEnFinales.prototype = {
     colisiones: function () {
 
         // Colisiones. Resta el valor de x y y de jugador y la condon, si es menor a 20px destruye el objeto condon
-        if (this.jugador.x == (this.condon1.x + 16) && this.jugador.y == (this.condon1.y+16)){
+        if (this.jugador.x == (this.condon1.x + 16) && this.jugador.y == (this.condon1.y + 16)) {
             reg.modal.showModal("modal1");
             this.condon1.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
@@ -339,8 +329,8 @@ estudianteEnFinales.prototype = {
             this.condon1.x = 0;
         }
 
-        if (this.jugador.x == (this.condon2.x + 16) && this.jugador.y == (this.condon2.y+16)){
-            reg.modal.showModal("modal1");
+        if (this.jugador.x == (this.condon2.x + 16) && this.jugador.y == (this.condon2.y + 16)) {
+            reg.modal.showModal("modal2");
             this.condon2.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon2.y = 0;
@@ -348,7 +338,7 @@ estudianteEnFinales.prototype = {
             //total_condones += 1;
         }
 
-        if (this.jugador.x == (this.condon3.x + 16) && this.jugador.y == (this.condon3.y+16)){
+        if (this.jugador.x == (this.condon3.x + 16) && this.jugador.y == (this.condon3.y + 16)) {
             this.condon3.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon3.y = 0;
@@ -356,24 +346,24 @@ estudianteEnFinales.prototype = {
             total_condones += 1;
         }
 
-        if (this.jugador.x == (this.condon4.x + 16) && this.jugador.y == (this.condon4.y+16)){
+        if (this.jugador.x == (this.condon4.x + 16) && this.jugador.y == (this.condon4.y + 16)) {
             this.condon4.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon4.y = 0;
             this.condon4.x = 0;
-            total_condones += 1;    
+            total_condones += 1;
         }
 
-        if (this.jugador.x == (this.condon5.x + 16) && this.jugador.y == (this.condon5.y+16)){
+        if (this.jugador.x == (this.condon5.x + 16) && this.jugador.y == (this.condon5.y + 16)) {
             this.condon5.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon5.y = 0;
             this.condon5.x = 0;
-            total_condones+= 1;    
+            total_condones += 1;
         }
 
         puntaje.setText("Puntaje: " + total_condones);
-        
+
     },
 
     /* Cambia de estado si gana*/
@@ -381,160 +371,100 @@ estudianteEnFinales.prototype = {
         /* Si el total de condones es 5 puede ir a la puerta y ganar */
         /* Como la posición de jugador se refiere al punto de giro, se suma 16 (ya que es la mitad del jugador)
          a la posición unal*/
-        if(this.jugador.x == (this.unal.x+16) && this.jugador.y == (this.unal.y+16)){
+        if (this.jugador.x == (this.unal.x + 16) && this.jugador.y == (this.unal.y + 16)) {
             if (total_condones == 5) {
                 game.state.start("ganar");
             } else {
                 puntaje.setText("¡Sin todos los condones ni pio!");
-                
+
             }
         }
-            
+
     },
 
     /* Cambia de estado si pierde */
-    perdiste: function(){
+    perdiste: function () {
         game.state.start('perder');
     },
 
-    createModals: function(){
- //// ventana modal 1, conversación 1 ////
- reg.modal.createModal({
-    type:"modal1",
-    includeBackground: true,
-    modalCloseOnInput: false,
-    itemsArr: [
-            {
-                type: "text",
-                content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
-                fontFamily: "Montserrat",
-                fontSize: 20,
-                color: "f6a5a3",
-                offsetY: -100,
-                stroke: "0x000000",
-                strokeThickness: 5
-        },
-            {
-                type: "text",
-                content: "¿Abrazar a un seropositivo puede hacer que te contagies?",
-                fontFamily: "Montserrat",
-                fontSize: 20,
-                color: "f6a5a3",
-                stroke: "0x000000",
-                strokeThickness: 5
-        },
-            {
-                type: "text",
-                content: "si",
-                fontFamily: "Montserrat",
-                fontSize: 30,
-                color: "f6a5a3",
-                stroke: "0x000000",
-                strokeThickness: 5,
-                offsetY: 100,
-                offsetX: -80,
-                callback: function () {
-                    reg.modal.hideModal("modal1");
-                    reg.modal.showModal("modal3");
-                    // en caso que responda no muestra game over y reinicia el juego
-                    setTimeout(
-                        function restart(){
-                            game.state.start('perder');
+    createModals: function () {
+        //// ventana modal 1, conversación 1 ////
+        reg.modal.createModal({
+            type: "modal1",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: -100,
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "¿Abrazar a un seropositivo puede hacer que te contagies?",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "si",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: -80,
+                    callback: function () {
+                        reg.modal.hideModal("modal1");
+                        reg.modal.showModal("modal3");
+                        // en caso que responda no muestra game over y reinicia el juego
+                        setTimeout(
+                            function restart() {
+                                game.state.start('perder');
                             },
-                        2500);  
-                }
-                //contentScale: 0.6,
+                            2500);
+                    }
+                    //contentScale: 0.6,
 
-        },
-            {
-                type: "text",
-                content: "no",
-                fontFamily: "Montserrat",
-                fontSize: 30,
-                color: "f6a5a3",
-                stroke: "0x000000",
-                strokeThickness: 5,
-                offsetY: 100,
-                offsetX: 80,
-                contentScale: 0.6,
-                callback: function () {
-                    // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
-                    // autemnta el 1 para eliminar la pared donde esta la reina
+                },
+                {
+                    type: "text",
+                    content: "no",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: 80,
+                    contentScale: 0.6,
+                    callback: function () {
+                        // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+                        // autemnta el 1 para eliminar la pared donde esta la reina
                         //reg.wallDestroy += 1;
                         //item.kill();                        
                         reg.modal.hideModal("modal1");
                         total_condones += 1;
                         //hero.walking_speed = 150;
                     }
-                
-            }
-        ]
-    });
 
-    // /// ventana modal 2, conversacion 2 ///
-    // reg.modal.createModal({
-    //     type:"modal2",
-    //     includeBackground: true,
-    //     modalCloseOnInput: false,
-    // itemsArr: [
-    //         {
-    //             type: "text",
-    //             content: "Tienes una oportunidad, si contestas mal Mueressssss.....",
-    //             fontFamily: "Montserrat",
-    //             fontSize: 20,
-    //             color: "f6a5a3",
-    //             offsetY: -100,
-    //             stroke: "0x000000",
-    //             strokeThickness: 5
-    //     },
-    //         {
-    //             type: "text",
-    //             content: "¿Darias lo que tienes por ella?",
-    //             fontFamily: "Montserrat",
-    //             fontSize: 20,
-    //             color: "f6a5a3",
-    //             stroke: "0x000000",
-    //             strokeThickness: 5
-    //     },
-    //         {
-    //             type: "image",
-    //             content: "si",
-    //             offsetY: 100,
-    //             offsetX: -80,
-    //             contentScale: 0.6,
-    //             callback: function () {
-    //                 // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
-    //                 // autemnta el 1 para eliminar la pared donde esta la reina
-    //                 reg.wallDestroy += 1;
-    //                 item.kill();                        
-    //                 reg.modal.hideModal("modal2");
-    //                 hero.walking_speed = 150;
-                
-    //             }
-    //     },
-    //         {
-    //             type: "image",
-    //             content: "no",
-    //             offsetY: 100,
-    //             offsetX: 80,
-    //             contentScale: 0.6,
-    //             callback: function () {
-    //                 reg.modal.hideModal("modal2");
-    //                 reg.modal.showModal("modal3");
-    //                 // en caso que responda no muestra game over y reinicia el juego
-    //                 setTimeout(
-    //                     function restart(){
-    //                         game.state.start("BootState", true, false, "assets/levels/world_level.json", "WorldState")
-    //                         },
-    //                     2500);                            
-    //             }
-    //     }
-    //     ]
-    // });
-        
-    /// ventana modal 3, conversación 3 ///
-    reg.modal.createModal({
-            type:"modal3",
+                }
+            ]
+        });
+
+
+        /// ventana modal 3, conversación 3 ///
+        reg.modal.createModal({
+            type: "modal3",
             includeBackground: true,
             modalCloseOnInput: false,
             itemsArr: [
@@ -546,7 +476,7 @@ estudianteEnFinales.prototype = {
                     color: "f6a5a3",
                     offsetY: 50
                 },
-              {
+                {
                     type: "text",
                     content: "¿Really?",
                     fontFamily: "Montserrat",
@@ -557,45 +487,45 @@ estudianteEnFinales.prototype = {
                 }
             ]
         });
-     
-    // Modal 2
-    reg.modal.createModal({
-    type:"modal2",
-    includeBackground: true,
-    modalCloseOnInput: false,
-    itemsArr: [
-            {
-                type: "text",
-                content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
-                fontFamily: "Montserrat",
-                fontSize: 20,
-                color: "f6a5a3",
-                offsetY: -100,
-                stroke: "0x000000",
-                strokeThickness: 5
-        },
-            {
-                type: "text",
-                content: "Si un hombre se hizo la circuncisión,\n ¿tiene menor riesgo de adquirir el VIH?",
-                fontFamily: "Montserrat",
-                fontSize: 20,
-                color: "f6a5a3",
-                stroke: "0x000000",
-                strokeThickness: 5
-        },
-            {
-                type: "text",
-                content: "si",
-                fontFamily: "Montserrat",
-                fontSize: 30,
-                color: "f6a5a3",
-                stroke: "0x000000",
-                strokeThickness: 5,
-                offsetY: 100,
-                offsetX: -80,
-                callback: function () {
-                    // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
-                    // autemnta el 1 para eliminar la pared donde esta la reina
+
+        // Modal 2
+        reg.modal.createModal({
+            type: "modal2",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    offsetY: -100,
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "Si un hombre se hizo la circuncisión,\n ¿tiene menor riesgo de adquirir el VIH?",
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5
+                },
+                {
+                    type: "text",
+                    content: "si",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: -80,
+                    callback: function () {
+                        // elimina los mounstros, cierra la venta modal y de nuevo permite movimiento al jugador
+                        // autemnta el 1 para eliminar la pared donde esta la reina
                         //reg.wallDestroy += 1;
                         //item.kill();                        
                         reg.modal.hideModal("modal2");
@@ -603,191 +533,61 @@ estudianteEnFinales.prototype = {
                         //hero.walking_speed = 150;
                     }
 
-        },
-            {
-                type: "text",
-                content: "no",
-                fontFamily: "Montserrat",
-                fontSize: 30,
-                color: "f6a5a3",
-                stroke: "0x000000",
-                strokeThickness: 5,
-                offsetY: 100,
-                offsetX: 80,
-                contentScale: 0.6,
-                callback: function () {
-                    reg.modal.hideModal("modal2");
-                    reg.modal.showModal("modal4");
-                    // en caso que responda no muestra game over y reinicia el juego
-                    setTimeout(
-                        function restart(){
-                            game.state.start('perder');
+                },
+                {
+                    type: "text",
+                    content: "no",
+                    fontFamily: "Montserrat",
+                    fontSize: 30,
+                    color: "f6a5a3",
+                    stroke: "0x000000",
+                    strokeThickness: 5,
+                    offsetY: 100,
+                    offsetX: 80,
+                    contentScale: 0.6,
+                    callback: function () {
+                        reg.modal.hideModal("modal2");
+                        reg.modal.showModal("modal4");
+                        // en caso que responda no muestra game over y reinicia el juego
+                        setTimeout(
+                            function restart() {
+                                game.state.start('perder');
                             },
-                        2500);  
+                            2500);
+                    }
+                    //contentScale: 0.6,
+
+
                 }
-                //contentScale: 0.6,
-                
-                
-            }
-        ]
-    });
+            ]
+        });
 
-    reg.modal.createModal({
-        type:"modal4",
-        includeBackground: true,
-        modalCloseOnInput: false,
-        itemsArr: [
-            {
-                type: "text",
-                content: "Las pruebas indican que la circuncisión masculina puede disminuir el riesgo de que un individuo se infecte por el VIH y la tasa de propagación del VIH en la comunidad",
-                fontFamily: "Montserrat",
-                fontSize: 12,
-                color: "f6a5a3",
-                offsetY: 50
-            },
-          {
-                type: "text",
-                content: "La circuncisión masculina nunca debe reemplazar \na otros métodos de prevención y debe considerarse\n como un elemento más de las medidas de prevención",
-                fontFamily: "Montserrat",
-                fontSize: 12,
-                color: "f6a5a3",
-                offsetY: -50,
-                contentScale: 0.6
-            }
-        ]
-    });
-    // /// ventana modal 4, conversación 4 ///
-    // reg.modal.createModal({
-    //         type:"modal4",
-    //         includeBackground: true,
-    //         modalCloseOnInput: false,
-    //         itemsArr: [
-    //             {
-    //                 type: "text",
-    //                 content: "Gracias por salvarme!\nEres el Amigo que toda\nprincesa debe tener!",
-    //                 fontFamily: "Montserrat",
-    //                 fontSize: 30,
-    //                 color: "f6a5a3",
-    //                 offsetY: 50
-    //             },
-    //           {
-    //                 type: "image",
-    //                 content: "princess",
-    //                 offsetY: -90
-    //             }
-    //         ]
-    //     });
-    //  /// ventana modal 5, conversación 5 /// 
-    // reg.modal.createModal({
-    //         type:"modal5",
-    //         includeBackground: true,
-    //         modalCloseOnInput: false,
-    //         itemsArr: [
-    //             {
-    //                 type: "image",
-    //                 content: "ahora_no",
-    //                 offsetY: 0
-    //             }
-    //         ]
-    //     });
-    // /// ventana modal 6, conversación 6 ///
-    // reg.modal.createModal({
-    //         type:"modal6",
-    //         includeBackground: true,
-    //         modalCloseOnInput: false,
-    //         itemsArr: [
-    //             {
-    //                 type: "text",
-    //                 content: "Ahora si princesa!\nHe luchado por ti!",
-    //                 fontFamily: "Montserrat",
-    //                 fontSize: 45,
-    //                 color: "f6a5a3",
-    //                 offsetY: 50
-    //             },
-    //           {
-    //                 type: "image",
-    //                 content: "hero",
-    //                 offsetY: -150
-    //             }
-    //         ]
-    //     });
-    // /// ventana modal 7, conversacion 7 ///
-    // reg.modal.createModal({
-    //         type:"modal7",
-    //         includeBackground: true,
-    //         modalCloseOnInput: false,
-    //         itemsArr: [
-    //             {
-    //                 type: "text",
-    //                 content: "Tu solo me salvaste con otras\nintenciones...",
-    //                 fontFamily: "Montserrat",
-    //                 fontSize: 30,
-    //                 color: "f6a5a3",
-    //                 offsetY: 50
-    //             },
-    //           {
-    //                 type: "image",
-    //                 content: "princess",
-    //                 offsetY: -90
-    //             }
-    //         ]
-    //     });
-    // /// ventana modal 8, conversación 8 ///
-    // reg.modal.createModal({
-    //         type:"modal8",
-    //         includeBackground: true,
-    //         modalCloseOnInput: false,
-    //         itemsArr: [
-    //             {
-    //                 type: "text",
-    //                 content: "... FIN",
-    //                 fontFamily: "Montserrat",
-    //                 fontSize: 30,
-    //                 color: "f6a5a3",
-    //                 offsetY: 50
-    //             },
-    //             {
-    //                 type: "image",
-    //                 content: "c_l_supo",
-    //                 offsetY: -150
-    //             }
-    //         ]
-    //     });
+        reg.modal.createModal({
+            type: "modal4",
+            includeBackground: true,
+            modalCloseOnInput: false,
+            itemsArr: [
+                {
+                    type: "text",
+                    content: "Las pruebas indican que la circuncisión masculina puede disminuir el riesgo de que un individuo se infecte por el VIH y la tasa de propagación del VIH en la comunidad",
+                    fontFamily: "Montserrat",
+                    fontSize: 12,
+                    color: "f6a5a3",
+                    offsetY: 50
+                },
+                {
+                    type: "text",
+                    content: "La circuncisión masculina nunca debe reemplazar \na otros métodos de prevención y debe considerarse\n como un elemento más de las medidas de prevención",
+                    fontFamily: "Montserrat",
+                    fontSize: 12,
+                    color: "f6a5a3",
+                    offsetY: -50,
+                    contentScale: 0.6
+                }
+            ]
+        });
+        
     },
-/*     render: function () {
-
-        //  Render permite añadir texto o colores sobre el juego
-
-        // Recorre todas las posibles direcciones 
-        for (var t = 1; t < 5; t++)
-        {
-            // Cuando no se le indica dirección que continue
-            if (this.direcciones[t] === null)
-            {
-                continue;
-            }
-
-            // Se crea un color por defecto : verde
-            var color = 'rgba(0,255,0,0.3)';
-
-            // Si la direccion t corresponde con la del usuario la coloca en azul la celda adyacente, con trasparencia
-            if (t === this.actual)
-            {
-                color = 'rgba(0,255,255,0.3)';
-            }
-            // Esto crea un cuadrado que rellena la celda adyacente con el color deseado y su transparencia
-            this.game.debug.geom(new Phaser.Rectangle(this.direcciones[t].worldX, this.direcciones[t].worldY, 32, 32), color, true);
-        }
-
-        this.game.debug.geom(this.puntoGiro, '#ffff00');
-        //Debug text permite imprimir encima del ambiente. La mayoria de posiciones logradas
-        //y la detección de colisiones se hicieron por medio de este debug. En este caso, se hizo para
-        //detectar cuando jugador y distraccion se cruzaban
-        //this.game.debug.text("Diferencia x: " + (this.jugador.x - (this.distraccion.x+16)), 32, 32);
-        //this.game.debug.text("Diferencia y: " + (this.jugador.y - (this.distraccion.y+16)), 32, 64);
-        //this.game.debug.text("Contador: " + total_condones, 32, 128);
-
-    } */
 
 };
 
