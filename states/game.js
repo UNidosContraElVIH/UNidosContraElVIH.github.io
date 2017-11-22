@@ -138,9 +138,9 @@ estudianteEnFinales.prototype = {
             se calculo para añadir a la posición: x*cantidad de casillas, y*cantidad de casillas*/
         this.condon1 = game.add.sprite(160, 32, 'condon');
         this.condon2 = game.add.sprite(384, 64, 'condon');
-        this.condon3 = game.add.sprite(128, 288, 'condon');
+        this.condon3 = game.add.sprite(128, 384, 'condon');
         this.condon4 = game.add.sprite(512, 288, 'condon');
-        this.condon5 = game.add.sprite(256, 384, 'condon');
+        this.condon5 = game.add.sprite(256, 320, 'condon');
         /* El movimiento del jugador es manejado por el usuario.
         Se le indica a game que se hará a través del teclado*/
         puntaje = game.add.text(2, 2, "Puntaje: 0", { font: "24px Montserrat" });
@@ -322,7 +322,8 @@ estudianteEnFinales.prototype = {
 
         // Colisiones. Resta el valor de x y y de jugador y la condon, si es menor a 20px destruye el objeto condon
         if (this.jugador.x == (this.condon1.x + 16) && this.jugador.y == (this.condon1.y + 16)) {
-            reg.modal.showModal("modal1");
+            reg.modal.showModal("question1");
+            game.paused = true;
             this.condon1.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon1.y = 0;
@@ -330,7 +331,8 @@ estudianteEnFinales.prototype = {
         }
 
         if (this.jugador.x == (this.condon2.x + 16) && this.jugador.y == (this.condon2.y + 16)) {
-            reg.modal.showModal("modal2");
+            reg.modal.showModal("question2");
+            game.paused = true;
             this.condon2.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon2.y = 0;
@@ -339,7 +341,8 @@ estudianteEnFinales.prototype = {
         }
 
         if (this.jugador.x == (this.condon3.x + 16) && this.jugador.y == (this.condon3.y + 16)) {
-            reg.modal.showModal("modal5");
+            reg.modal.showModal("question3");
+            game.paused = true;
             this.condon3.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon3.y = 0;
@@ -348,7 +351,8 @@ estudianteEnFinales.prototype = {
         }
 
         if (this.jugador.x == (this.condon4.x + 16) && this.jugador.y == (this.condon4.y + 16)) {
-            reg.modal.showModal("modal7");
+            reg.modal.showModal("question4");
+            game.paused = true;
             this.condon4.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon4.y = 0;
@@ -357,7 +361,8 @@ estudianteEnFinales.prototype = {
         }
 
         if (this.jugador.x == (this.condon5.x + 16) && this.jugador.y == (this.condon5.y + 16)) {
-            reg.modal.showModal("modal9");
+            reg.modal.showModal("question5");
+            game.paused = true;
             this.condon5.destroy();
             /* Se cambian los valores de x y y para que no entre de nuevo al if */
             this.condon5.y = 0;
@@ -393,7 +398,7 @@ estudianteEnFinales.prototype = {
     createModals: function () {
         //// ventana modal 1, conversación 1 ////
         reg.modal.createModal({
-            type: "modal1",
+            type: "question1",
             includeBackground: true,
             modalCloseOnInput: false,
             itemsArr: [
@@ -401,20 +406,20 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
                     offsetY: -100,
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
                     content: "¿Abrazar a un seropositivo puede hacer que te contagies?",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
@@ -422,19 +427,20 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: -80,
                     callback: function () {
-                        reg.modal.hideModal("modal1");
+                        game.paused = false;
+                        reg.modal.hideModal("question1");
                         reg.modal.showModal("modal3");
                         // en caso que responda no muestra game over y reinicia el juego
                         setTimeout(
                             function restart() {
                                 game.state.start('perder');
                             },
-                            7500);
+                            4000);
                     }
                     //contentScale: 0.6,
 
@@ -445,8 +451,8 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: 80,
                     contentScale: 0.6,
@@ -455,8 +461,9 @@ estudianteEnFinales.prototype = {
                         // autemnta el 1 para eliminar la pared donde esta la reina
                         //reg.wallDestroy += 1;
                         //item.kill();                        
-                        reg.modal.hideModal("modal1");
+                        reg.modal.hideModal("question1");
                         total_condones += 1;
+                        game.paused = false;
                         //hero.walking_speed = 150;
                     }
 
@@ -477,6 +484,8 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 42,
                     color: "f6a5a3",
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 50
                 },
                 {
@@ -485,6 +494,8 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 42,
                     color: "f6a5a3",
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: -50,
                     contentScale: 0.6
                 }
@@ -493,7 +504,7 @@ estudianteEnFinales.prototype = {
 
         // Modal 2
         reg.modal.createModal({
-            type: "modal2",
+            type: "question2",
             includeBackground: true,
             modalCloseOnInput: false,
             itemsArr: [
@@ -501,20 +512,20 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
                     offsetY: -100,
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
                     content: "Si un hombre se hizo la circuncisión,\n ¿tiene menor riesgo de adquirir el VIH?",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
@@ -522,8 +533,8 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: -80,
                     callback: function () {
@@ -531,8 +542,9 @@ estudianteEnFinales.prototype = {
                         // autemnta el 1 para eliminar la pared donde esta la reina
                         //reg.wallDestroy += 1;
                         //item.kill();                        
-                        reg.modal.hideModal("modal2");
+                        reg.modal.hideModal("question2");
                         total_condones += 1;
+                        game.paused = false;
                         //hero.walking_speed = 150;
                     }
 
@@ -543,20 +555,21 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: 80,
                     contentScale: 0.6,
                     callback: function () {
-                        reg.modal.hideModal("modal2");
+                        game.paused = false;
+                        reg.modal.hideModal("question2");
                         reg.modal.showModal("modal4");
                         // en caso que responda no muestra game over y reinicia el juego
                         setTimeout(
                             function restart() {
                                 game.state.start('perder');
                             },
-                            7500);
+                            4000);
                     }
                     //contentScale: 0.6,
 
@@ -572,19 +585,23 @@ estudianteEnFinales.prototype = {
             itemsArr: [
                 {
                     type: "text",
-                    content: "Las pruebas indican que la circuncisión masculina \npuede disminuir el riesgo de que un individuo se infecte por el VIH\n y la tasa de propagación del VIH en la comunidad",
+                    content: "Las pruebas indican que la circuncisión masculina \npuede disminuir el riesgo de que un individuo se \ninfecte por el VIH y la tasa de propagación del VIH en la comunidad",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    offsetY: 50
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
+                    offsetY: -50
                 },
                 {
                     type: "text",
                     content: "La circuncisión masculina nunca debe reemplazar \na otros métodos de prevención y debe considerarse\n como un elemento más de las medidas de prevención",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    offsetY: -50,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
+                    offsetY: 50,
                     contentScale: 0.6
                 }
             ]
@@ -592,7 +609,7 @@ estudianteEnFinales.prototype = {
 
         // Modal 5
         reg.modal.createModal({
-            type: "modal5",
+            type: "question3",
             includeBackground: true,
             modalCloseOnInput: false,
             itemsArr: [
@@ -600,20 +617,20 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
                     offsetY: -100,
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
                     content: "Si tu eres fiel,\n ¿puedes adquirir el VIH?",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
@@ -621,8 +638,8 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: -80,
                     callback: function () {
@@ -630,8 +647,9 @@ estudianteEnFinales.prototype = {
                         // autemnta el 1 para eliminar la pared donde esta la reina
                         //reg.wallDestroy += 1;
                         //item.kill();                        
-                        reg.modal.hideModal("modal5");
+                        reg.modal.hideModal("question3");
                         total_condones += 1;
+                        game.paused = false;
                         //hero.walking_speed = 150;
                     }
 
@@ -642,20 +660,21 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: 80,
                     contentScale: 0.6,
                     callback: function () {
-                        reg.modal.hideModal("modal5");
+                        game.paused = false;
+                        reg.modal.hideModal("question3");
                         reg.modal.showModal("modal6");
                         // en caso que responda no muestra game over y reinicia el juego
                         setTimeout(
                             function restart() {
                                 game.state.start('perder');
                             },
-                            7500);
+                            4000);
                     }
                     //contentScale: 0.6,
 
@@ -673,17 +692,21 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "Puedes contagiarte con una transfusión de sangre.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    offsetY: 50
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
+                    offsetY: -50
                 },
                 {
                     type: "text",
                     content: "Y.... así seas fiel, nada asegura que tu pareja lo sea ;)",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    offsetY: -50,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
+                    offsetY: 50,
                     contentScale: 0.6
                 }
             ]
@@ -692,7 +715,7 @@ estudianteEnFinales.prototype = {
         // Modal 7
         // Modal 5
         reg.modal.createModal({
-            type: "modal5",
+            type: "question4",
             includeBackground: true,
             modalCloseOnInput: false,
             itemsArr: [
@@ -700,20 +723,20 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
                     offsetY: -100,
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
                     content: "Si practico sexo oral no puedo adquirir el VIH.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
@@ -721,19 +744,20 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: -80,
                     callback: function () {
-                        reg.modal.hideModal("modal5");
-                        reg.modal.showModal("modal6");
+                        game.paused = false;
+                        reg.modal.hideModal("question4");
+                        reg.modal.showModal("modal27");
                         // en caso que responda no muestra game over y reinicia el juego
                         setTimeout(
                             function restart() {
                                 game.state.start('perder');
                             },
-                            7500);
+                            4000);
                     }
 
                 },
@@ -743,8 +767,8 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: 80,
                     contentScale: 0.6,
@@ -753,8 +777,9 @@ estudianteEnFinales.prototype = {
                         // autemnta el 1 para eliminar la pared donde esta la reina
                         //reg.wallDestroy += 1;
                         //item.kill();                        
-                        reg.modal.hideModal("modal5");
+                        reg.modal.hideModal("question4");
                         total_condones += 1;
+                        game.paused = false;
                         //hero.walking_speed = 150;
                     }
 
@@ -766,7 +791,7 @@ estudianteEnFinales.prototype = {
         });
 
         reg.modal.createModal({
-            type: "modal6",
+            type: "modal27",
             includeBackground: true,
             modalCloseOnInput: false,
             itemsArr: [
@@ -774,16 +799,20 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "El semen puede contener el virus.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 50
                 },
                 {
                     type: "text",
                     content: "Puedes tener sexo oral, siempre y cuando sea con condón.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: -50,
                     contentScale: 0.6
                 }
@@ -794,7 +823,7 @@ estudianteEnFinales.prototype = {
         //Modal 9
         // Modal 5
         reg.modal.createModal({
-            type: "modal9",
+            type: "question5",
             includeBackground: true,
             modalCloseOnInput: false,
             itemsArr: [
@@ -802,20 +831,20 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "Tienes una oportunidad, \nsi contestas mal tienes que volver a comenzar.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
                     offsetY: -100,
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
                     content: "¿VIH es lo mismo que SIDA?",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5
+                    stroke: "1a1c1e",
+                    strokeThickness: 4
                 },
                 {
                     type: "text",
@@ -823,19 +852,20 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: -80,
                     callback: function () {
-                        reg.modal.hideModal("modal9");
+                        game.paused = false;
+                        reg.modal.hideModal("question5");
                         reg.modal.showModal("modal10");
                         // en caso que responda no muestra game over y reinicia el juego
                         setTimeout(
                             function restart() {
                                 game.state.start('perder');
                             },
-                            7500);
+                            4000);
                     }
 
                 },
@@ -845,8 +875,8 @@ estudianteEnFinales.prototype = {
                     fontFamily: "Montserrat",
                     fontSize: 30,
                     color: "f6a5a3",
-                    stroke: "0x000000",
-                    strokeThickness: 5,
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 100,
                     offsetX: 80,
                     contentScale: 0.6,
@@ -855,8 +885,9 @@ estudianteEnFinales.prototype = {
                         // autemnta el 1 para eliminar la pared donde esta la reina
                         //reg.wallDestroy += 1;
                         //item.kill();                        
-                        reg.modal.hideModal("modal9");
+                        reg.modal.hideModal("question5");
                         total_condones += 1;
+                        game.paused = false;
                         //hero.walking_speed = 150;
                     }
 
@@ -877,16 +908,20 @@ estudianteEnFinales.prototype = {
                     type: "text",
                     content: "El SIDA es la etapa avanzada de la infección por VIH.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: 50
                 },
                 {
                     type: "text",
                     content: "Puede tardar entre 2 y 15 años en manifestarse.",
                     fontFamily: "Montserrat",
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "f6a5a3",
+                    stroke: "1a1c1e",
+                    strokeThickness: 4,
                     offsetY: -50,
                     contentScale: 0.6
                 }
